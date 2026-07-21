@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # postcss's patched version (8.5.10+) conflicts with next@16.2.10's
+      # pinned postcss@8.4.31, so Dependabot can't resolve this update and
+      # repeatedly fails. Re-enable once Next.js bumps its bundled postcss.
+      - dependency-name: "postcss"
