@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import ThreeBackground from "@/components/ThreeBackground";
+import { themeInitScript } from "@/components/ThemeToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,8 +28,13 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* Runs before paint so the stored/system theme applies with no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       {/*
         No background color on <html>/<body>: a color set there gets
         propagated to the root "canvas" background per the CSS spec, which

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "홈" },
@@ -20,25 +21,28 @@ export default function NavBar() {
         <Link href="/" className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
           🎵 절대음감 트레이너
         </Link>
-        <ul className="flex gap-1 text-sm">
-          {LINKS.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`rounded-full px-3 py-1.5 font-medium transition-colors ${
-                    active
-                      ? "bg-indigo-600 text-white"
-                      : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="flex items-center gap-2">
+          <ul className="flex gap-1 text-sm">
+            {LINKS.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`rounded-full px-3 py-1.5 font-medium transition-colors ${
+                      active
+                        ? "bg-indigo-600 text-white"
+                        : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
