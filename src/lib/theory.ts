@@ -24,6 +24,25 @@ export function midiToLabel(midi: number): string {
   return `${midiToNoteName(midi)}${octave}`;
 }
 
+// Korean solfège (계이름) for the white keys, in pitch-class order starting at C.
+export const SOLFEGE: Record<NoteName, string> = {
+  C: "도",
+  "C#": "도#",
+  D: "레",
+  "D#": "레#",
+  E: "미",
+  F: "파",
+  "F#": "파#",
+  G: "솔",
+  "G#": "솔#",
+  A: "라",
+  "A#": "라#",
+  B: "시",
+};
+
+export const WHITE_KEYS: NoteName[] = ["C", "D", "E", "F", "G", "A", "B"];
+export const BLACK_KEYS: (NoteName | null)[] = ["C#", "D#", null, "F#", "G#", "A#", null];
+
 export interface IntervalDef {
   semitones: number;
   name: string;

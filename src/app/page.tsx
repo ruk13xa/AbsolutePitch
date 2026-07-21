@@ -2,6 +2,12 @@ import Link from "next/link";
 
 const GAMES = [
   {
+    href: "/practice",
+    title: "건반 연습",
+    desc: "퀴즈 없이 도, 레, 미, 파, 솔, 라, 시(도)를 자유롭게 눌러 들어보는 연습 공간입니다.",
+    emoji: "🎶",
+  },
+  {
     href: "/note",
     title: "음 맞추기",
     desc: "재생되는 하나의 음을 듣고 어떤 음(C, D, E...)인지 맞추는 기본 훈련입니다.",
@@ -33,7 +39,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {GAMES.map((game) => (
           <Link
             key={game.href}

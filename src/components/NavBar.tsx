@@ -6,6 +6,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "홈" },
+  { href: "/practice", label: "건반 연습" },
   { href: "/note", label: "음 맞추기" },
   { href: "/interval", label: "인터벌" },
   { href: "/chord", label: "코드" },
