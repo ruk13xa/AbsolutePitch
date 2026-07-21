@@ -67,13 +67,16 @@ export default function ThreeBackground() {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
+    // NormalBlending (not Additive) so particles stay visible against the
+    // light backdrop too — additive blending washes out to invisible on a
+    // near-white background since it can only ever brighten pixels.
     const material = new THREE.PointsMaterial({
-      size: 0.18,
+      size: 0.22,
       vertexColors: true,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
       sizeAttenuation: true,
     });
 

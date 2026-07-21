@@ -27,9 +27,17 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-zinc-50 dark:bg-black`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      {/*
+        No background color on <html>/<body>: a color set there gets
+        propagated to the root "canvas" background per the CSS spec, which
+        always paints below every element regardless of z-index — including
+        the Three.js layer below — hiding it completely. Painting the
+        fallback color on its own fixed div keeps stacking order normal.
+      */}
       <body className="relative min-h-full flex flex-col">
+        <div className="fixed inset-0 -z-20 bg-zinc-50 dark:bg-black" aria-hidden="true" />
         <ThreeBackground />
         <div className="relative z-10 flex min-h-full flex-1 flex-col">
           <NavBar />
