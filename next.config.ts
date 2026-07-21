@@ -1,17 +1,10 @@
 import type { NextConfig } from "next";
 
-// GitHub Pages serves this repo at https://<owner>.github.io/AbsolutePitch/,
-// so assets need that subpath baked in when building in CI.
-const repoName = "AbsolutePitch";
-const isGithubActions = process.env.GITHUB_ACTIONS === "true";
-
+// Served from a custom domain (absolutepitch.ruka.my) at the root, so no
+// basePath/assetPrefix is needed — only static export for GitHub Pages.
 const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
-  ...(isGithubActions && {
-    basePath: `/${repoName}`,
-    assetPrefix: `/${repoName}/`,
-  }),
 };
 
 export default nextConfig;
