@@ -38,7 +38,7 @@ export default function Home() {
           <Link
             key={game.href}
             href={game.href}
-            className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
+            className="flex flex-col gap-2 rounded-2xl border border-zinc-200/80 bg-white/80 backdrop-blur-sm p-6 transition-transform hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900/70"
           >
             <span className="text-3xl">{game.emoji}</span>
             <h2 className="font-semibold text-zinc-900 dark:text-zinc-50">{game.title}</h2>
@@ -47,7 +47,7 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400">
+      <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/80 backdrop-blur-sm p-6 text-sm text-zinc-600 dark:border-zinc-800/80 dark:bg-zinc-900/60 dark:text-zinc-400">
         <h3 className="mb-2 font-semibold text-zinc-800 dark:text-zinc-200">훈련 팁</h3>
         <ul className="list-inside list-disc space-y-1">
           <li>매일 짧게라도 꾸준히 연습하는 것이 가장 효과적입니다.</li>

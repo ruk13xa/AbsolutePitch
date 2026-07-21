@@ -98,7 +98,7 @@ export default function IntervalTrainingPage() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-zinc-200/80 bg-white/80 backdrop-blur-sm p-8 dark:border-zinc-800/80 dark:bg-zinc-900/70">
         <button
           onClick={replay}
           className="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-600 text-3xl text-white shadow-lg transition-transform hover:scale-105 active:scale-95"

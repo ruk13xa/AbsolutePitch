@@ -33,7 +33,7 @@ export default function StatsPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-900 dark:bg-indigo-950/40">
+      <div className="rounded-2xl border border-indigo-200/80 bg-indigo-50/80 backdrop-blur-sm p-5 dark:border-indigo-900/80 dark:bg-indigo-950/40">
         <div className="text-sm text-indigo-600 dark:text-indigo-300">전체 정확도</div>
         <div className="text-3xl font-bold text-indigo-700 dark:text-indigo-200">
           {overallAccuracy}%
@@ -47,7 +47,7 @@ export default function StatsPage() {
         {GAMES.map((game) => (
           <div
             key={game}
-            className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900"
+            className="rounded-2xl border border-zinc-200/80 bg-white/80 backdrop-blur-sm p-5 dark:border-zinc-800/80 dark:bg-zinc-900/70"
           >
             <div className="mb-3 flex items-center justify-between">
               <h2 className="font-semibold text-zinc-900 dark:text-zinc-50">
