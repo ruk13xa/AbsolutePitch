@@ -1,0 +1,65 @@
+import Link from "next/link";
+
+const GAMES = [
+  {
+    href: "/note",
+    title: "음 맞추기",
+    desc: "재생되는 하나의 음을 듣고 어떤 음(C, D, E...)인지 맞추는 기본 훈련입니다.",
+    emoji: "🎹",
+  },
+  {
+    href: "/interval",
+    title: "인터벌 맞추기",
+    desc: "연속으로 재생되는 두 음 사이의 간격(인터벌)을 맞추는 훈련입니다.",
+    emoji: "↔️",
+  },
+  {
+    href: "/chord",
+    title: "코드 맞추기",
+    desc: "동시에 울리는 화음을 듣고 코드의 종류를 구분하는 훈련입니다.",
+    emoji: "🎼",
+  },
+];
+
+export default function Home() {
+  return (
+    <div className="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-14">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
+          절대음감을 키워보세요
+        </h1>
+        <p className="mt-3 text-zinc-500 dark:text-zinc-400">
+          꾸준한 반복 훈련으로 음, 인터벌, 코드를 듣고 구분하는 능력을 기를 수 있습니다.
+        </p>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-3">
+        {GAMES.map((game) => (
+          <Link
+            key={game.href}
+            href={game.href}
+            className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-6 transition-transform hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
+          >
+            <span className="text-3xl">{game.emoji}</span>
+            <h2 className="font-semibold text-zinc-900 dark:text-zinc-50">{game.title}</h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">{game.desc}</p>
+          </Link>
+        ))}
+      </div>
+
+      <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400">
+        <h3 className="mb-2 font-semibold text-zinc-800 dark:text-zinc-200">훈련 팁</h3>
+        <ul className="list-inside list-disc space-y-1">
+          <li>매일 짧게라도 꾸준히 연습하는 것이 가장 효과적입니다.</li>
+          <li>쉬움 난이도로 자신감을 쌓은 뒤 어려움 난이도에 도전해보세요.</li>
+          <li>
+            <Link href="/stats" className="underline">
+              통계 페이지
+            </Link>
+            에서 정확도와 연속 정답 기록을 확인할 수 있어요.
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
