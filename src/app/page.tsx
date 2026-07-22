@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StreakBadge from "@/components/StreakBadge";
 
 const GAMES = [
   {
@@ -38,6 +39,8 @@ export default function Home() {
           꾸준한 반복 훈련으로 음, 인터벌, 코드를 듣고 구분하는 능력을 기를 수 있습니다.
         </p>
       </div>
+
+      <StreakBadge />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {GAMES.map((game) => (

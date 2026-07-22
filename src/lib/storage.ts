@@ -1,3 +1,5 @@
+import { recordDailyActivity } from "@/lib/streak";
+
 export type GameKey = "note" | "interval" | "chord";
 
 export interface GameStats {
@@ -48,6 +50,7 @@ export function recordAnswer(game: GameKey, isCorrect: boolean): GameStats {
   }
   stats.lastPlayedAt = new Date().toISOString();
   saveStats(game, stats);
+  recordDailyActivity();
   return stats;
 }
 

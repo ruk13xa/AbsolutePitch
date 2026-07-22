@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { playNote } from "@/lib/audio";
+import { recordDailyActivity } from "@/lib/streak";
 import { BLACK_KEYS, NOTE_NAMES, SOLFEGE, WHITE_KEYS, type NoteName } from "@/lib/theory";
 
 function noteToMidi(name: NoteName, octave: number): number {
@@ -16,6 +17,7 @@ export default function PianoKeyboard() {
     const midi = noteToMidi(name, octave);
     setActiveMidi(midi);
     playNote(midi);
+    recordDailyActivity();
     window.setTimeout(() => setActiveMidi((cur) => (cur === midi ? null : cur)), 250);
   };
 

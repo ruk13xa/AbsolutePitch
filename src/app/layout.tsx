@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NavBar from "@/components/NavBar";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import ThreeBackground from "@/components/ThreeBackground";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
@@ -18,6 +19,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "절대음감 트레이너",
   description: "음, 인터벌, 코드를 듣고 맞추며 절대음감을 훈련하는 웹앱",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "절대음감",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
 };
 
 export default function RootLayout({
@@ -43,6 +53,7 @@ export default function RootLayout({
         fallback color on its own fixed div keeps stacking order normal.
       */}
       <body className="relative min-h-full flex flex-col">
+        <ServiceWorkerRegister />
         <div className="fixed inset-0 -z-20 bg-zinc-50 dark:bg-black" aria-hidden="true" />
         <ThreeBackground />
         <div className="relative z-10 flex min-h-full flex-1 flex-col">
