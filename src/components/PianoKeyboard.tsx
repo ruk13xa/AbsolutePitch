@@ -33,19 +33,19 @@ export default function PianoKeyboard() {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex items-center gap-3 text-sm">
+      <div className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
         <button
           onClick={() => setOctave((o) => Math.max(2, o - 1))}
-          className="rounded-full bg-zinc-100 px-3 py-1.5 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+          className="shrink-0 whitespace-nowrap rounded-full bg-zinc-100 px-2.5 py-1.5 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 sm:px-3"
         >
           − 옥타브
         </button>
-        <span className="w-20 text-center font-semibold text-zinc-700 dark:text-zinc-200">
+        <span className="w-16 shrink-0 whitespace-nowrap text-center font-semibold text-zinc-700 dark:text-zinc-200 sm:w-20">
           옥타브 {octave}
         </span>
         <button
           onClick={() => setOctave((o) => Math.min(6, o + 1))}
-          className="rounded-full bg-zinc-100 px-3 py-1.5 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+          className="shrink-0 whitespace-nowrap rounded-full bg-zinc-100 px-2.5 py-1.5 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 sm:px-3"
         >
           + 옥타브
         </button>

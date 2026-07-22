@@ -2,7 +2,7 @@ import PianoKeyboard from "@/components/PianoKeyboard";
 
 export default function PracticePage() {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
+    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10 sm:px-6">
       <div>
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">건반 연습</h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -11,7 +11,7 @@ export default function PracticePage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-8 backdrop-blur-sm dark:border-zinc-800/80 dark:bg-zinc-900/70">
+      <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-4 backdrop-blur-sm dark:border-zinc-800/80 dark:bg-zinc-900/70 sm:p-8">
         <PianoKeyboard />
       </div>
     </div>

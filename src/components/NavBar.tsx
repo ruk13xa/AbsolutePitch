@@ -18,30 +18,33 @@ export default function NavBar() {
 
   return (
     <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80 sticky top-0 z-10">
-      <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
-          🎵 절대음감 트레이너
+      <nav className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+        <Link
+          href="/"
+          className="shrink-0 whitespace-nowrap text-base font-bold text-zinc-900 dark:text-zinc-50 sm:text-lg"
+        >
+          🎵 절대음감
         </Link>
-        <div className="flex items-center gap-2">
-          <ul className="flex gap-1 text-sm">
-            {LINKS.map((link) => {
-              const active = pathname === link.href;
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`rounded-full px-3 py-1.5 font-medium transition-colors ${
-                      active
-                        ? "bg-indigo-600 text-white"
-                        : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+        <ul className="flex min-w-0 flex-1 gap-1 overflow-x-auto text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {LINKS.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <li key={link.href} className="shrink-0">
+                <Link
+                  href={link.href}
+                  className={`block whitespace-nowrap rounded-full px-3 py-1.5 font-medium transition-colors ${
+                    active
+                      ? "bg-indigo-600 text-white"
+                      : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="shrink-0">
           <ThemeToggle />
         </div>
       </nav>
