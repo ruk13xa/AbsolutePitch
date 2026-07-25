@@ -32,8 +32,6 @@ export default function NavBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  const activeLink = LINKS.find((link) => link.href === pathname);
-
   const linkClassName = (active: boolean) =>
     `font-medium ${
       active
@@ -41,11 +39,10 @@ export default function NavBar() {
         : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
     }`;
 
+  const activeLink = LINKS.find((link) => link.href === pathname);
+
   return (
-    <header
-      ref={menuRef}
-      className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80 sticky top-0 z-20"
-    >
+    <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80 sticky top-0 z-20">
       <nav className="mx-auto flex max-w-4xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4">
         <Link
           href="/"
@@ -54,7 +51,24 @@ export default function NavBar() {
           🎵 절대음감
         </Link>
 
-        <div className="relative flex items-center gap-2">
+        {/* Desktop: every link shown inline, no toggle needed. */}
+        <ul className="hidden min-w-0 flex-1 flex-wrap justify-end gap-1 text-sm sm:flex">
+          {LINKS.map((link) => (
+            <li key={link.href} className="shrink-0">
+              <Link
+                href={link.href}
+                className={`block rounded-full px-3 py-1.5 text-sm whitespace-nowrap ${linkClassName(
+                  pathname === link.href,
+                )}`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Mobile: compact dropdown, since the full list doesn't fit on one line. */}
+        <div ref={menuRef} className="relative sm:hidden">
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
@@ -65,11 +79,10 @@ export default function NavBar() {
             <span className={`transition-transform ${open ? "rotate-180" : ""}`}>▾</span>
           </button>
 
-          {/* Mobile: a small dropdown anchored under the button. */}
           {open && (
             <ul
               role="menu"
-              className="absolute right-0 top-full z-30 mt-2 w-44 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl sm:hidden dark:border-zinc-800 dark:bg-zinc-900"
+              className="absolute right-0 top-full z-30 mt-2 w-44 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
             >
               {LINKS.map((link) => (
                 <li key={link.href}>
@@ -85,30 +98,10 @@ export default function NavBar() {
               ))}
             </ul>
           )}
-
-          <ThemeToggle />
         </div>
+
+        <ThemeToggle />
       </nav>
-
-      {/* Desktop: the header itself expands downward with the full link list. */}
-      {open && (
-        <div className="hidden border-t border-zinc-200 sm:block dark:border-zinc-800">
-          <ul role="menu" className="mx-auto flex max-w-4xl flex-wrap gap-2 px-6 py-4">
-            {LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={`block rounded-full px-4 py-2 text-sm ${linkClassName(pathname === link.href)}`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </header>
   );
 }
