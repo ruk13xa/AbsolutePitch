@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import AchievementToast from "@/components/AchievementToast";
 import AnswerButton, { type AnswerState } from "@/components/AnswerButton";
 import StatBadges from "@/components/StatBadges";
 import { playNote } from "@/lib/audio";
 import { loadStats, recordAnswer, resetStats, type GameStats } from "@/lib/storage";
 import { midiToNoteName, NOTE_NAMES, randomInt, type NoteName } from "@/lib/theory";
+import { useAchievementToast } from "@/lib/useAchievementToast";
 
 const WHITE_KEY_NAMES: NoteName[] = ["C", "D", "E", "F", "G", "A", "B"];
 
@@ -31,6 +33,7 @@ export default function NoteTrainingPage() {
   const [selected, setSelected] = useState<NoteName | null>(null);
   const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState<GameStats | null>(null);
+  const { toast, triggerCheck } = useAchievementToast();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -64,6 +67,7 @@ export default function NoteTrainingPage() {
     const isCorrect = midiToNoteName(target) === name;
     const updated = recordAnswer("note", isCorrect);
     setStats(updated);
+    triggerCheck();
   };
 
   const noteChoices = difficulty === "easy" ? WHITE_KEY_NAMES : NOTE_NAMES;
@@ -147,6 +151,7 @@ export default function NoteTrainingPage() {
       >
         통계 초기화
       </button>
+      <AchievementToast achievement={toast} />
     </div>
   );
 }

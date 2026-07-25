@@ -67,6 +67,12 @@ export default function Home() {
             </Link>
             에서 정확도와 연속 정답 기록을 확인할 수 있어요.
           </li>
+          <li>
+            <Link href="/badges" className="underline">
+              배지 페이지
+            </Link>
+            에서 훈련하며 모을 수 있는 배지를 확인해보세요.
+          </li>
         </ul>
       </div>
     </div>

@@ -10,6 +10,7 @@ const LINKS = [
   { href: "/note", label: "음 맞추기" },
   { href: "/interval", label: "인터벌" },
   { href: "/chord", label: "코드" },
+  { href: "/badges", label: "배지" },
   { href: "/stats", label: "통계" },
 ];
 

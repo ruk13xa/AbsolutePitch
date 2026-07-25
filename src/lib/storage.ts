@@ -65,3 +65,18 @@ export const GAME_LABELS: Record<GameKey, string> = {
   interval: "인터벌 맞추기",
   chord: "코드 맞추기",
 };
+
+const PRACTICE_PRESS_KEY = "absolutepitch:practice-presses";
+
+export function loadPracticePressCount(): number {
+  if (typeof window === "undefined") return 0;
+  return Number(window.localStorage.getItem(PRACTICE_PRESS_KEY)) || 0;
+}
+
+export function incrementPracticePressCount(): number {
+  const count = loadPracticePressCount() + 1;
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(PRACTICE_PRESS_KEY, String(count));
+  }
+  return count;
+}

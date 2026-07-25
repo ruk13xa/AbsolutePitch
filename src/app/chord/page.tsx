@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import AchievementToast from "@/components/AchievementToast";
 import AnswerButton, { type AnswerState } from "@/components/AnswerButton";
 import StatBadges from "@/components/StatBadges";
 import { playChord } from "@/lib/audio";
 import { loadStats, recordAnswer, resetStats, type GameStats } from "@/lib/storage";
 import { CHORDS, randomInt, type ChordDef } from "@/lib/theory";
+import { useAchievementToast } from "@/lib/useAchievementToast";
 
 type Difficulty = "easy" | "hard";
 
@@ -24,6 +26,7 @@ export default function ChordTrainingPage() {
   const [selected, setSelected] = useState<ChordDef | null>(null);
   const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState<GameStats | null>(null);
+  const { toast, triggerCheck } = useAchievementToast();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -57,6 +60,7 @@ export default function ChordTrainingPage() {
     const isCorrect = chord.short === target.short;
     const updated = recordAnswer("chord", isCorrect);
     setStats(updated);
+    triggerCheck();
   };
 
   const choices = choicesFor(difficulty);
@@ -141,6 +145,7 @@ export default function ChordTrainingPage() {
       >
         통계 초기화
       </button>
+      <AchievementToast achievement={toast} />
     </div>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import AchievementToast from "@/components/AchievementToast";
 import { playNote } from "@/lib/audio";
+import { incrementPracticePressCount } from "@/lib/storage";
 import { recordDailyActivity } from "@/lib/streak";
 import { BLACK_KEYS, NOTE_NAMES, SOLFEGE, WHITE_KEYS, type NoteName } from "@/lib/theory";
+import { useAchievementToast } from "@/lib/useAchievementToast";
 
 function noteToMidi(name: NoteName, octave: number): number {
   return (octave + 1) * 12 + NOTE_NAMES.indexOf(name);
@@ -12,12 +15,15 @@ function noteToMidi(name: NoteName, octave: number): number {
 export default function PianoKeyboard() {
   const [octave, setOctave] = useState(4);
   const [activeMidi, setActiveMidi] = useState<number | null>(null);
+  const { toast, triggerCheck } = useAchievementToast();
 
   const play = (name: NoteName) => {
     const midi = noteToMidi(name, octave);
     setActiveMidi(midi);
     playNote(midi);
     recordDailyActivity();
+    incrementPracticePressCount();
+    triggerCheck();
     window.setTimeout(() => setActiveMidi((cur) => (cur === midi ? null : cur)), 250);
   };
 
@@ -102,6 +108,7 @@ export default function PianoKeyboard() {
       >
         도~시 순서대로 재생
       </button>
+      <AchievementToast achievement={toast} />
     </div>
   );
 }

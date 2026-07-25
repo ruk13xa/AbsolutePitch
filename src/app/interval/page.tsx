@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import AchievementToast from "@/components/AchievementToast";
 import AnswerButton, { type AnswerState } from "@/components/AnswerButton";
 import StatBadges from "@/components/StatBadges";
 import { playSequence } from "@/lib/audio";
 import { loadStats, recordAnswer, resetStats, type GameStats } from "@/lib/storage";
 import { INTERVALS, randomInt, type IntervalDef } from "@/lib/theory";
+import { useAchievementToast } from "@/lib/useAchievementToast";
 
 type Difficulty = "easy" | "hard";
 
@@ -24,6 +26,7 @@ export default function IntervalTrainingPage() {
   const [selected, setSelected] = useState<IntervalDef | null>(null);
   const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState<GameStats | null>(null);
+  const { toast, triggerCheck } = useAchievementToast();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -57,6 +60,7 @@ export default function IntervalTrainingPage() {
     const isCorrect = interval.semitones === target.semitones;
     const updated = recordAnswer("interval", isCorrect);
     setStats(updated);
+    triggerCheck();
   };
 
   const choices = choicesFor(difficulty);
@@ -141,6 +145,7 @@ export default function IntervalTrainingPage() {
       >
         통계 초기화
       </button>
+      <AchievementToast achievement={toast} />
     </div>
   );
 }
