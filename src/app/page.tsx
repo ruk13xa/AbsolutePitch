@@ -26,6 +26,12 @@ const GAMES = [
     desc: "동시에 울리는 화음을 듣고 코드의 종류를 구분하는 훈련입니다.",
     emoji: "🎼",
   },
+  {
+    href: "/compose",
+    title: "작곡 도우미",
+    desc: "키, 스케일, 코드 진행을 고르면 어울리는 멜로디를 만들어 들려줍니다.",
+    emoji: "🪄",
+  },
 ];
 
 export default function Home() {
