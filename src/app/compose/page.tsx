@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PianoKeyboard from "@/components/PianoKeyboard";
 import { playNote } from "@/lib/audio";
 import {
   generateMelody,
@@ -38,6 +39,10 @@ export default function ComposePage() {
   const [saved, setSaved] = useState<SavedMelody[]>([]);
   const [playingSavedId, setPlayingSavedId] = useState<string | null>(null);
   const [justSaved, setJustSaved] = useState(false);
+
+  const [recordedNotes, setRecordedNotes] = useState<number[]>([]);
+  const [recordedPlayingIndex, setRecordedPlayingIndex] = useState<number | null>(null);
+  const [recordedJustSaved, setRecordedJustSaved] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -81,6 +86,18 @@ export default function ComposePage() {
 
   const removeSaved = (id: string) => {
     setSaved(deleteMelody(id));
+  };
+
+  const playRecorded = () => {
+    if (recordedNotes.length === 0) return;
+    playMelodyNotes(recordedNotes, setRecordedPlayingIndex);
+  };
+
+  const saveRecorded = () => {
+    if (recordedNotes.length === 0) return;
+    setSaved(saveMelody(recordedNotes, "직접 연주한 멜로디"));
+    setRecordedJustSaved(true);
+    window.setTimeout(() => setRecordedJustSaved(false), 2000);
   };
 
   const melodyText = melody?.map((midi) => midiToLabel(midi)).join(" - ") ?? "";
@@ -225,6 +242,58 @@ export default function ComposePage() {
           </div>
         </div>
       )}
+
+      <div className="flex flex-col gap-4 rounded-2xl border border-zinc-200/80 bg-white/80 p-4 backdrop-blur-sm dark:border-zinc-800/80 dark:bg-zinc-900/70 sm:p-6">
+        <div>
+          <h2 className="font-semibold text-zinc-900 dark:text-zinc-50">건반으로 직접 연주하기</h2>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            건반을 누르는 순서대로 멜로디가 기록돼요. 마음에 드는 걸 쳤다면 바로 저장하세요.
+          </p>
+        </div>
+
+        <PianoKeyboard onNotePlay={(midi) => setRecordedNotes((prev) => [...prev, midi])} />
+
+        {recordedNotes.length > 0 && (
+          <div className="flex flex-col gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-800">
+            <div className="flex flex-wrap gap-2">
+              {recordedNotes.map((midi, i) => (
+                <span
+                  key={i}
+                  className={`rounded-lg border px-2.5 py-1.5 text-sm font-semibold transition-colors ${
+                    recordedPlayingIndex === i
+                      ? "border-indigo-500 bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-200"
+                      : "border-zinc-200 bg-zinc-50 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
+                  }`}
+                >
+                  {SOLFEGE[midiToNoteName(midi)]}
+                  <span className="ml-1 text-xs text-zinc-400">{midiToLabel(midi)}</span>
+                </span>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                onClick={playRecorded}
+                className="flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500"
+              >
+                ▶ 재생
+              </button>
+              <button
+                onClick={saveRecorded}
+                className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
+              >
+                {recordedJustSaved ? "저장됨!" : "💾 저장하기"}
+              </button>
+              <button
+                onClick={() => setRecordedNotes([])}
+                className="text-xs text-zinc-400 underline hover:text-zinc-600 dark:hover:text-zinc-300"
+              >
+                지우기
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       {saved.length > 0 && (
         <div className="flex flex-col gap-3">

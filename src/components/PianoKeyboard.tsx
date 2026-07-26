@@ -12,7 +12,12 @@ function noteToMidi(name: NoteName, octave: number): number {
   return (octave + 1) * 12 + NOTE_NAMES.indexOf(name);
 }
 
-export default function PianoKeyboard() {
+export default function PianoKeyboard({
+  onNotePlay,
+}: {
+  /** Called with the MIDI note whenever a key is pressed — lets a parent record what's played. */
+  onNotePlay?: (midi: number) => void;
+}) {
   const [octave, setOctave] = useState(4);
   const [activeMidi, setActiveMidi] = useState<number | null>(null);
   const { toast, triggerCheck } = useAchievementToast();
@@ -24,6 +29,7 @@ export default function PianoKeyboard() {
     recordDailyActivity();
     incrementPracticePressCount();
     triggerCheck();
+    onNotePlay?.(midi);
     window.setTimeout(() => setActiveMidi((cur) => (cur === midi ? null : cur)), 250);
   };
 
